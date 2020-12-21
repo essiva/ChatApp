@@ -6,6 +6,10 @@ const express = require("express"),
       layouts = require("express-ejs-layouts"),
       //bootstrap = require("bootstrap"),
       mongoose = require("mongoose"),
+      chatController = require("./controllers/chatController"),
+      errorController = require("./controllers/errorController"),
+      homeController = require("./controllers/homeController"),
+      usersController = require("./controllers/usersController"),
       expressSession = require("express-session"),
       cookieParser = require("cookie-parser"),
       connectFlash = require("connect-flash"),
@@ -38,7 +42,7 @@ router.use(
 router.use(express.json());
 
 
-
+router.get("/", homeController.index);
 
 
 
