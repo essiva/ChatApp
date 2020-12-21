@@ -22,7 +22,6 @@
   "homepage": "https://github.com/essiva/ChatApp#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "bootstrap": "^4.5.3",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
     "ejs": "^3.1.5",
