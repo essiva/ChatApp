@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1">
     <title>Chat App</title>
-   <!-- <script type="text/javascript" src="/js/jquery.min.js"></script>-->
-    <!--<script type="text/javascript" src="/js/bootstrap.min.js"></script>-->
-    <script type="text/javascript" src="/js/chatApp.js"></script>	
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/chatApp.css">
+    <link rel="stylesheet" type="text/css" href="/css/chatApp.css">
   </head>
     <body>
-      <%- include('partials/header') %> <%- body %> <%- include('partials/footer')
-      %>
+      <div id="nav">
+        <div class="col-sm nav-align">
+          <h1 id="title">Chat App</h1>
+        </div>
+        <div class="col-sm nav-align">
+          <a href="/">
+            <span class="button">Home</span>
+          </a>
+          <a href="#">
+            <span class="button">Chat</span>
+          </a>
+          <a href="/login">
+            <span class="button">Login</span>
+          </a>
+          <a href="#">
+            <span class="button">Register</span>
+          </a>
+        </div>
+      </div> 
+
+      <div class="container">
+      <%- body %>
+    </div>
+
+  <div class="footer">
+
+       <%- include('partials/footer')%>
+      </div>
     </body>
 </html>

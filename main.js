@@ -22,6 +22,8 @@ mongoose.connect("mongodb://localhost:27017/chatapp_db", {
     useUnifiedTopology: true
 });
 
+mongoose.set("useCreateIndex", true);
+
 const db = mongoose.connection;
 
 db.once("open", () => {
@@ -42,7 +44,7 @@ router.use(express.json());
 
 
 router.get("/", homeController.index);
-
+router.get("/login", usersController.login);
 
 
 
@@ -50,4 +52,4 @@ router.get("/", homeController.index);
 app.use("/", router);
 app.listen(app.get("port"), () => {
     console.log(`Server running at http://localhost:${app.get("port")}`);
-})
+});
