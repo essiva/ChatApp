@@ -44,9 +44,10 @@ router.use(express.json());
 
 
 router.get("/", homeController.index);
+
+router.get("/register", usersController.new);
+router.post("/create", usersController.create, usersController.redirectView);
 router.get("/login", usersController.login);
-
-
 
 
 app.use("/", router);
