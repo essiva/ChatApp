@@ -75,3 +75,7 @@ a {
   .error {
     background: rgba(209, 46, 42, 0.7);
   }
+.send-container {
+    margin: 0;
+    padding-top: 400px;
+}

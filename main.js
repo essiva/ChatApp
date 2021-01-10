@@ -1,12 +1,16 @@
 "use strict";
 
-//require all modules
+//importing all modules
 const express = require("express"),
       app = express(),
       router = express.Router(),
       httpStatus = require("http-status-codes"),
       layouts = require("express-ejs-layouts"),
+      randomColor = require("randomcolor"),
+      uuid = require("uuid"),
       mongoose = require("mongoose"),
+      http = require("http").Server(app),
+      io = require("socket.io")(http),
       chatController = require("./controllers/chatController"),
       errorController = require("./controllers/errorController"),
       homeController = require("./controllers/homeController"),
@@ -32,6 +36,7 @@ router.use((req,res,next) => {
     next();
 });
 
+const { error } = require("console");
 const methodOverride = require("method-override");//Lets use HTTP verbs PUT or DELETE. Use methodOverride as middleware
 router.use(methodOverride("_method", {
     methods: ["POST", "GET"]
@@ -48,12 +53,18 @@ mongoose.set("useCreateIndex", true);
 
 const db = mongoose.connection;//create connection
 
+const color = randomColor();//randomColor package
+
+io.on("connection", socket => {
+    socket.send("hello")
+});
+
 db.once("open", () => {
     console.log("Successfull connection to database!")//appears on the console when the database connection is success
 });
 
 app.set("port", process.env.PORT || 3000);
-app.set("view engine", "ejs");//setting ejs
+app.set("view engine", "ejs");//setting template engine ejs
 
 router.use(express.static("public"));//using files from public folder
 router.use(layouts);//using layout module
@@ -67,13 +78,17 @@ router.use(express.json());//analyzing data within incoming requests
 
 router.get("/", homeController.index);//route for home page
 
-//routes for the register and login pages
+//routes 
 router.get("/register", usersController.new);
 router.post("/create", usersController.create, usersController.redirectView);
 router.get("/login", usersController.login);
+router.get("/chat", chatController.chatView);
 
+router.use(errorController.logErrors);
+router.use(errorController.pageNotFound);
+router.use(errorController.internalServerError);
 
 app.use("/", router);
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"), () => {//listen port 3000
     console.log(`Server running at http://localhost:${app.get("port")}`);
 });
